@@ -1,0 +1,13 @@
+import sys, bcrypt
+from termcolor import colored
+from dia_12 import gen_password
+pepper = "static_pepper_value"
+length = int(sys.argv[1]) if len(sys.argv) > 1 else 16
+password = gen_password(length)
+salted_password = password + pepper
+hashed_password = bcrypt.hashpw(salted_password.encode(), bcrypt.gensalt())
+print(colored("🚀 Secure Password Generator 🚀", "cyan", attrs=["bold"]))
+print(colored(f"Generated password ({length} characters):", "green"))
+print(colored(password, "yellow"))
+print(colored("Ecrypting password...", "green", attrs=["bold"]))
+print(colored(hashed_password.decode(), "magenta"))
